@@ -9,17 +9,11 @@ import SwiftUI
 import PhotosUI
 
 struct ProducerEditView: View {
-    
-    @State var image: Image?
-    @State var name = ""
-    @State var email = ""
-    @State var phone = ""
-    @State var address = ""
-    @State var about = ""
-    
-    @EnvironmentObject private var model: Model
-    @StateObject var imagePicker = ImagePicker()
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var model: Model
+    
+    @State var newProducerData = Producer.Data()
+    @StateObject var imagePicker = ImagePicker()
     
     var body: some View {
         ZStack {
@@ -50,20 +44,25 @@ struct ProducerEditView: View {
                 }
                
                 Section(header: Text("Basic Information")) {
-                    TextField("Producer name", text: $name)
-                    TextField("Email", text: $email)
-                    TextField("Phone", text: $phone)
-                    TextField("Something about you...", text: $about, axis: .vertical)
+                    TextField("Producer name", text: $newProducerData.name)
+                    TextField("Email", text: $newProducerData.email)
+                    TextField("Phone", text: $newProducerData.phone)
+                    TextField("Something about you...", text: $newProducerData.about, axis: .vertical)
                 }
                 Section(header: Text("Where to find")) {
-                    TextField("Address", text: $address)
+                    TextField("Address", text: $newProducerData.address)
                 }
                 Button("Save", action: {
-                    model.fetchedProducers.append(Producer(
-                        id: Int.random(in: 1...1000),
-                        name: name,
-                        address: address
-                    ))
+                    let producer = Producer(fromData: newProducerData)
+                    model.save([producer]) { result in
+                        switch result {
+                        case .success(let count):
+                            model.producers.append(producer)
+                            print(count)
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
                     dismiss()
                 })
             }

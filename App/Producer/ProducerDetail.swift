@@ -30,6 +30,6 @@ struct ProducerDetail: View {
 
 struct ProducerDetail_Previews: PreviewProvider {
     static var previews: some View {
-        ProducerDetail(producer: Producer.demoData)
+        ProducerDetail(producer: Producer.sampleData)
     }
 }

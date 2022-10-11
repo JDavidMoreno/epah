@@ -15,7 +15,7 @@ struct Order: Identifiable, Hashable {
 }
 
 extension Order {
-    static let demoData = [
+    static let sampleData = [
         Order(id: 1, name: "O2022/00001")
     ]
 }

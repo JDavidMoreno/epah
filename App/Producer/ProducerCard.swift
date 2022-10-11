@@ -35,6 +35,6 @@ struct ProducerCard: View {
 
 struct ProducerCard_Previews: PreviewProvider {
     static var previews: some View {
-        ProducerCard(producer: Producer.demoData)
+        ProducerCard(producer: Producer.sampleData)
     }
 }

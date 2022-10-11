@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct ProducerMenu: View {
+    
     var body: some View {
         ZStack {
             Color("Background")
                 .ignoresSafeArea()
             ProducerGallery()
                 .navigationTitle(Text("Producers"))
+               
         }
      
     }
